@@ -1,18 +1,13 @@
 import "dotenv/config";
 import express, { NextFunction, Request, Response } from "express";
-import NoteModel from './models/note';
+import noteRoutes from "./routes/noteRoutes";
+import morgan from "morgan";
 
 const app = express();
 
-app.get("/", async (req, res, next) => {
-    try {
-        // throw Error("Bazinga!");
-        const notes = await NoteModel.find().exec();
-        res.status(200).json(notes);
-    } catch (error) {
-        next(error);
-    }
-});
+app.use(morgan("dev"));
+app.use(express.json());
+app.use("/api/notes", noteRoutes);
 
 app.use((req, res, next) => {
     next(Error("Route does not exist!"));
