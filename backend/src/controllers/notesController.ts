@@ -68,7 +68,6 @@ export const updateNote: RequestHandler<UpdateNoteParams, unknown, UpdateNoteBod
     try {
         if (!mongoose.isValidObjectId(noteId)) {
             throw createHttpError(400, "Invalid note ID");
-            
         }
 
         if (!newTitle) {
@@ -89,13 +88,12 @@ export const updateNote: RequestHandler<UpdateNoteParams, unknown, UpdateNoteBod
     }
 }
 
-export const deleteNote: RequestHandler =async (req, res, next) => {
+export const deleteNote: RequestHandler = async (req, res, next) => {
     const noteId = req.params.noteId;
 
     try {
         if (!mongoose.isValidObjectId(noteId)) {
             throw createHttpError(400, "Invalid note ID");
-            
         }
         const note = await NoteModel.findById(noteId).exec();
 
